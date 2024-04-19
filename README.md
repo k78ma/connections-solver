@@ -16,4 +16,4 @@ python solver.py 4-18-2024.txt
 ```
 
 ## TODO
-- [] Add evaluation against actual solution
+- [ ] Add evaluation against actual solution
