@@ -51,7 +51,7 @@ def group_coherence(group_indices: List[int], words: List[str], matrix: dict) ->
         scores.append(matrix[key])
     return np.mean(scores)
 
-def evalGroups(individual, words, similarity_matrix):
+def eval_grouping(individual, words, similarity_matrix):
     groups = [individual[i*4:(i+1)*4] for i in range(4)]
     return (np.mean([group_coherence(group, words, similarity_matrix) for group in groups]),)
 
@@ -62,7 +62,7 @@ def setup_genetic_algorithm(toolbox, words, similarity_matrix):
     toolbox.register("indices", random.sample, range(len(words)), len(words))
     toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.indices)
     toolbox.register("population", tools.initRepeat, list, toolbox.individual)
-    toolbox.register("evaluate", evalGroups, words=words, similarity_matrix=similarity_matrix)
+    toolbox.register("evaluate", eval_grouping, words=words, similarity_matrix=similarity_matrix)
     toolbox.register("mate", tools.cxPartialyMatched)
     toolbox.register("mutate", tools.mutShuffleIndexes, indpb=0.05)
     toolbox.register("select", tools.selTournament, tournsize=3)
