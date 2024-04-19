@@ -1,8 +1,7 @@
 import os
 import random
 from collections import defaultdict
-
-# from tqdm import tqdm
+from tqdm import tqdm
 from deap import base, creator, tools, algorithms
 import numpy as np
 import itertools
@@ -50,11 +49,10 @@ def diversity_penalty(individual):
 
 # Fitness function to maximize
 def evalGroups(individual):
+    # Split individual into four groups of indices
     groups = [individual[i*4:(i+1)*4] for i in range(4)]
-    coherence_score = np.mean([group_coherence(group, words, similarity_matrix) for group in groups])
-    penalty = diversity_penalty(individual)
-    # Reduce fitness for commonly occurring solutions
-    return (coherence_score - 0.1 * penalty,)
+    # Calculate and return the average coherence of groups
+    return (np.mean([group_coherence(group, words, similarity_matrix) for group in groups]),)
 
 # Genetic Algorithm setup
 creator.create("FitnessMax", base.Fitness, weights=(1.0,))
@@ -67,7 +65,7 @@ toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 toolbox.register("evaluate", evalGroups)
 toolbox.register("mate", tools.cxPartialyMatched)
-toolbox.register("mutate", tools.mutShuffleIndexes, indpb=0.1)
+toolbox.register("mutate", tools.mutShuffleIndexes, indpb=0.05)
 toolbox.register("select", tools.selTournament, tournsize=3)
 
 # Running the genetic algorithm
