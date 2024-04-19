@@ -1,7 +1,7 @@
 # NYT Connections Solver
 This project aims to play the NYT Connections Game using vectorized embeddings of words.
 
-The idea is to use embedding similarity as a metric for how good a given 4x4 grouping of 16 words is. This metric is then used as a fitness function for a genetic algorithm to find the best groupings without brute forcing all ~2.6 million combinations.
+The idea is to use embedding similarity as a metric for how good a given 4x4 grouping of 16 words is. This metric is then used as a fitness function for a genetic algorithm to find the best grouping, which hopefully allows us to avoid having to evaluate all ~2.6 million possibilties.
 
 ## Requirements
 - Gensim (`pip install gensim`)
